@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
-import { HeroTerminal } from './components/HeroTerminal';
+import { PortfolioMicrofrontend } from './components/PortfolioMicrofrontend';
 import { ProjectShowcase } from './components/ProjectShowcase';
 import { CommandPalette } from './components/CommandPalette';
 import { PreviewDrawer } from './components/PreviewDrawer';
 import { APPS } from './data/apps';
 import { AppItem } from './types';
-import { Github, Activity, ArrowUp } from 'lucide-react';
+import { Github, ArrowUp } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
@@ -16,7 +16,7 @@ export const App: React.FC = () => {
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [highlightedProjectId, setHighlightedProjectId] = useState<string | null>(null);
 
-  // Mechanical sound synthesizer
+  // Audio synthesizer
   const playMechanicalSound = (freq = 800) => {
     if (!soundEnabled) return;
     try {
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
       osc.start();
       osc.stop(audioCtx.currentTime + 0.04);
     } catch {
-      // AudioContext unallowed or unsupported
+      // AudioContext unavailable
     }
   };
 
@@ -76,32 +76,17 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [soundEnabled]);
 
-  const scrollToProjects = () => {
+  const scrollToSystems = () => {
     playMechanicalSound(700);
-    const el = document.getElementById('projects');
+    const el = document.getElementById('systems');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const handleSelectProjectFromTerminal = (projectId: string) => {
-    playMechanicalSound(850);
-    setHighlightedProjectId(projectId);
-    const targetEl = document.getElementById(`project-${projectId}`);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      scrollToProjects();
-    }
-
-    setTimeout(() => {
-      setHighlightedProjectId(null);
-    }, 3000);
-  };
-
   return (
     <div className="min-h-screen flex flex-col font-sans bg-black text-slate-200 selection:bg-emerald-500 selection:text-black">
-      {/* Sleek Top Header */}
+      {/* Top Header */}
       <Header
         onOpenCommand={() => {
           playMechanicalSound(900);
@@ -113,15 +98,12 @@ export const App: React.FC = () => {
         onToggleSound={() => setSoundEnabled(!soundEnabled)}
       />
 
-      {/* Hero: Full-Screen Portfolio & Interactive Terminal */}
+      {/* Main Flow */}
       <main className="flex-1 w-full">
-        <HeroTerminal
-          apps={APPS}
-          onSelectProject={handleSelectProjectFromTerminal}
-          onScrollToProjects={scrollToProjects}
-        />
+        {/* Fullscreen Initial View: Live Portfolio Microfrontend */}
+        <PortfolioMicrofrontend onScrollDown={scrollToSystems} />
 
-        {/* Minimalist Projects Showcase (No tag clutter or card overload) */}
+        {/* Next Projects Section with Smooth Scroll Animations & Zero Clutter */}
         <ProjectShowcase
           apps={APPS}
           highlightedId={highlightedProjectId}
@@ -132,12 +114,12 @@ export const App: React.FC = () => {
         />
       </main>
 
-      {/* Minimalist Clean Footer */}
+      {/* Minimal Footer */}
       <footer className="border-t border-white/5 py-8 px-4 lg:px-8 mt-16 bg-zinc-950/80">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>STASH // Amit Kumar Dey (@akdey)</span>
+            <span>STASH // Amit Kumar Dey (@akdey) — Micro-Frontend Launchpad</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -153,7 +135,7 @@ export const App: React.FC = () => {
             <span>•</span>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="hover:text-white flex items-center gap-1 transition-colors"
+              className="hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
             >
               <ArrowUp className="w-3.5 h-3.5" />
               <span>Back to Top</span>
@@ -162,13 +144,13 @@ export const App: React.FC = () => {
         </div>
       </footer>
 
-      {/* Interactive In-Situ Preview Drawer */}
+      {/* In-Situ Preview Drawer */}
       <PreviewDrawer
         app={drawerApp}
         onClose={() => setDrawerApp(null)}
       />
 
-      {/* Command Palette Modal */}
+      {/* Command Palette */}
       <CommandPalette
         isOpen={isCommandOpen}
         onClose={() => setIsCommandOpen(false)}

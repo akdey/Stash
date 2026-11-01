@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Github, Terminal, Search, Radio } from 'lucide-react';
+import { ArrowUpRight, Github, Terminal, Search } from 'lucide-react';
 import { AppItem } from '../types';
 
 interface ProjectShowcaseProps {
@@ -17,7 +17,10 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<'all' | 'hosted'>('all');
 
-  const filteredApps = apps.filter((app) => {
+  // Filter out the portfolio itself from the subsequent projects list since it's the hero microfrontend
+  const projectList = apps.filter((app) => app.id !== 'portfolio');
+
+  const filteredApps = projectList.filter((app) => {
     const matchesFilter = filter === 'all' || (filter === 'hosted' && app.isHosted);
     const q = search.toLowerCase().trim();
     const matchesSearch =
@@ -29,23 +32,23 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
   });
 
   return (
-    <section id="projects" className="max-w-6xl mx-auto px-4 lg:px-8 py-16 scroll-mt-20">
+    <section id="systems" className="max-w-6xl mx-auto px-4 lg:px-8 py-20 scroll-mt-6">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>SYSTEM DIRECTORY</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span>ECOSYSTEM DIRECTORY</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Flagship Systems & Micro-Frontends
+            Next Projects & Micro-Frontends
           </h2>
           <p className="text-xs sm:text-sm font-mono text-slate-400 mt-1">
-            Zero-overhead autonomous agents, algorithmic market engines, and mission interfaces.
+            Autonomous agent systems, high-throughput market scanners, and cloud tools.
           </p>
         </div>
 
-        {/* Minimal Search & Filter */}
+        {/* Minimal Search & Filter Bar */}
         <div className="flex items-center gap-3">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -54,7 +57,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Filter systems..."
-              className="pl-8 pr-3 py-1.5 bg-zinc-950 border border-white/10 rounded-lg text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors w-44 sm:w-56"
+              className="pl-8 pr-3 py-1.5 bg-zinc-950 border border-white/10 rounded-lg text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors w-40 sm:w-56"
             />
           </div>
 
@@ -67,7 +70,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              All ({apps.length})
+              All ({projectList.length})
             </button>
             <button
               onClick={() => setFilter('hosted')}
@@ -77,7 +80,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              Hosted ({apps.filter((a) => a.isHosted).length})
+              Hosted ({projectList.filter((a) => a.isHosted).length})
             </button>
           </div>
         </div>
@@ -94,10 +97,10 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
             <motion.div
               key={app.id}
               id={`project-${app.id}`}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: (index % 4) * 0.08, ease: 'easeOut' }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.08, ease: 'easeOut' }}
               className={`py-8 sm:py-10 transition-colors rounded-2xl px-4 sm:px-6 -mx-4 sm:-mx-6 ${
                 isHighlighted
                   ? 'bg-emerald-950/20 border border-emerald-500/40'
@@ -113,7 +116,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
                     </span>
 
                     {app.isHosted ? (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                         <span>Live Host</span>
                       </span>
