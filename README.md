@@ -58,14 +58,14 @@ open index.html
 
 ### Option 2: Run via Local Server
 ```bash
-cd AppLauncher
+cd central-command
 npm start
 # Launches on http://localhost:3000
 ```
 
 ### Option 3: Deploy to Vercel in 10 Seconds
 ```bash
-cd AppLauncher
+cd central-command
 vercel --prod
 ```
 
