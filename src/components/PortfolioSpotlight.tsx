@@ -1,218 +1,175 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Laptop, Tablet, Smartphone, ShieldCheck, ChevronDown, ChevronUp, Radio } from 'lucide-react';
+import { ExternalLink, Terminal, ShieldCheck, ArrowUpRight, Play, Eye, Sparkles, Layers } from 'lucide-react';
 import { AppItem } from '../types';
 
 interface PortfolioSpotlightProps {
-  hostedApps: AppItem[];
-  selectedApp: AppItem;
-  onSelectApp: (app: AppItem) => void;
+  flagshipApps: AppItem[];
+  onOpenPreviewDrawer: (app: AppItem) => void;
 }
 
 export const PortfolioSpotlight: React.FC<PortfolioSpotlightProps> = ({
-  hostedApps,
-  selectedApp,
-  onSelectApp
+  flagshipApps,
+  onOpenPreviewDrawer,
 }) => {
-  const [deviceViewport, setDeviceViewport] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
-  const [frameLoading, setFrameLoading] = useState<boolean>(true);
+  const [activeFlagshipId, setActiveFlagshipId] = useState<string>(flagshipApps[0]?.id || 'portfolio');
 
-  const viewportWidths = {
-    desktop: 'w-full h-[580px]',
-    tablet: 'w-[768px] h-[580px] mx-auto',
-    mobile: 'w-[390px] h-[580px] mx-auto'
-  };
+  const currentApp = flagshipApps.find((a) => a.id === activeFlagshipId) || flagshipApps[0];
 
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="glass-panel rounded-2xl border border-white/10 mb-8 overflow-hidden shadow-2xl relative"
-    >
-      {/* Top Banner & Profile Overview */}
-      <div className="p-6 lg:p-8 border-b border-white/10 bg-gradient-to-r from-dark-900 via-dark-850 to-dark-900">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          
-          {/* Identity & Mission */}
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-3">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-              </span>
-              <span>EXECUTIVE PORTFOLIO SPOTLIGHT</span>
-              <span className="text-slate-600">•</span>
-              <span className="text-slate-300">Amit Kumar Dey (@akdey)</span>
+    <section className="mb-10">
+      {/* Bento Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        
+        {/* Cell 1: Identity & Engineering Thesis (7 Cols) */}
+        <div className="lg:col-span-7 panel-obsidian rounded-2xl p-6 lg:p-7 flex flex-col justify-between relative overflow-hidden">
+          {/* Subtle Accent Glow */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div>
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-brand-500/10 text-brand-400 border border-brand-500/20">
+                <span className="live-pulse-dot bg-brand-400 rounded-full"></span>
+                <span>SYSTEMS ARCHITECT & STAFF ENGINEER</span>
+              </div>
+              <span className="text-xs font-mono text-slate-500">Kolkata, IN • Remote</span>
             </div>
 
-            <h1 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
-              Autonomous AI Systems & Full-Stack Command Planes
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+              Amit Kumar Dey
             </h1>
-            
-            <p className="text-sm md:text-base text-slate-300 mt-2 leading-relaxed">
-              Staff / Principal level engineering spanning <span className="text-brand-400 font-semibold">Agent Governance & LLM Firewalls</span>, <span className="text-cyan-400 font-semibold">Real-Time Algorithmic Market Intelligence</span>, and <span className="text-sky-400 font-semibold">Local-First Zero-Billing Architectures</span>.
-            </p>
+            <p className="text-xs font-mono text-cyan-400 mt-1">@akdey // Autonomous AI, Quantitative Systems & Zero-Cost Infra</p>
 
-            {/* Quick Metrics Bar */}
-            <div className="flex flex-wrap items-center gap-4 mt-5 text-xs font-mono">
-              <div className="px-3 py-1.5 rounded-lg bg-dark-800 border border-white/5 text-slate-300">
-                <span className="text-brand-400 font-bold text-sm">7</span> Hosted Production Systems
-              </div>
-              <div className="px-3 py-1.5 rounded-lg bg-dark-800 border border-white/5 text-slate-300">
-                <span className="text-cyan-400 font-bold text-sm">14</span> Open Source Engines
-              </div>
-              <div className="px-3 py-1.5 rounded-lg bg-dark-800 border border-white/5 text-slate-300">
-                <span className="text-sky-400 font-bold text-sm">₹0.00</span> Cloud DB Billing Philosophy
-              </div>
-            </div>
+            <p className="text-xs sm:text-sm text-slate-300 mt-3.5 leading-relaxed max-w-xl">
+              Engineering autonomous multi-agent councils, institutional-grade equity intelligence engines, and local-first zero-billing architectures. Strict proponent of <strong className="text-white font-semibold">"No AI UI"</strong> — designing bespoke, domain-specific command surfaces rather than generic chat bubbles.
+            </p>
           </div>
 
-          {/* Action Hub & Live Simulator Trigger */}
-          <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3">
-            <div className="flex items-center gap-2">
+          <div className="pt-6 mt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
               <a
-                href={selectedApp.hostedUrl || "https://portfolio.akdey.vercel.app/"}
+                href="https://portfolio.akdey.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-black font-mono font-bold text-xs transition-all shadow-lg shadow-brand-500/20"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-black font-semibold text-xs font-mono hover:bg-slate-200 transition-colors shadow-sm"
               >
-                <span>Launch {selectedApp.name} ↗</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Master Portfolio ↗</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
 
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-750 text-xs font-mono text-slate-300 border border-white/10 transition-colors"
-                title={isExpanded ? "Collapse Device Simulator" : "Expand Device Simulator"}
+              <a
+                href="https://github.com/akdey"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 text-slate-200 text-xs font-mono border border-white/10 transition-colors"
               >
-                {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                <span className="hidden sm:inline">{isExpanded ? 'Hide Viewport' : 'Show Viewport'}</span>
-              </button>
+                <span>github.com/akdey</span>
+                <ExternalLink className="w-3 h-3 text-slate-400" />
+              </a>
             </div>
 
-            <span className="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
-              <Radio className="w-3 h-3 text-brand-400 animate-pulse" />
-              Interactive Device Inspector Active
-            </span>
+            <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
+                7 Live Deployments
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                14 Open Source
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Cell 2: Interactive Flagship Showcase Radar (5 Cols) */}
+        <div className="lg:col-span-5 panel-obsidian rounded-2xl p-6 lg:p-7 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+                Featured Flagship Radar
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">
+                ACTIVE PRODUCTION
+              </span>
+            </div>
+
+            {/* Quick-Switch Pill Tabs */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 mb-4 custom-scrollbar">
+              {flagshipApps.slice(0, 5).map((app) => (
+                <button
+                  key={app.id}
+                  onClick={() => setActiveFlagshipId(app.id)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all whitespace-nowrap ${
+                    activeFlagshipId === app.id
+                      ? 'bg-brand-500 text-black font-bold shadow-sm'
+                      : 'bg-dark-850 hover:bg-dark-800 text-slate-400 hover:text-white border border-white/5'
+                  }`}
+                >
+                  <span>{app.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Active System Details */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentApp.id}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
+                className="space-y-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center text-xl border border-white/10">
+                    {currentApp.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-white tracking-tight">{currentApp.name}</h3>
+                    <p className="text-xs font-mono text-brand-400">{currentApp.tagline}</p>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                  {currentApp.description}
+                </p>
+
+                <div className="p-2.5 rounded-xl bg-dark-900 border border-white/5 flex items-center justify-between text-xs font-mono">
+                  <span className="text-slate-400">Architectural Metric:</span>
+                  <span className="text-cyan-400 font-semibold">{currentApp.keyMetric}</span>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
+          {/* Action Row */}
+          <div className="pt-4 mt-4 border-t border-white/5 flex items-center gap-2">
+            <a
+              href={currentApp.hostedUrl || currentApp.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex-1 text-center py-2 px-3 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-black font-mono font-bold text-xs transition-all shadow-md shadow-brand-500/10 flex items-center justify-center gap-1.5"
+            >
+              <span>Launch Live App</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+
+            {currentApp.isHosted && (
+              <button
+                onClick={() => onOpenPreviewDrawer(currentApp)}
+                className="px-3 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-white/10 text-xs font-mono flex items-center gap-1.5 transition-colors"
+                title="Preview inside slide-over drawer"
+              >
+                <Eye className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="hidden sm:inline">Inspect</span>
+              </button>
+            )}
+          </div>
         </div>
+
       </div>
-
-      {/* Interactive Device Viewport & Multi-App Switcher */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div 
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="p-4 lg:p-6 bg-dark-950 border-t border-white/5"
-          >
-            {/* Viewport Control Strip */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-              
-              {/* App Switcher Tabs */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full custom-scrollbar">
-                {hostedApps.map((app) => (
-                  <button
-                    key={app.id}
-                    onClick={() => {
-                      setFrameLoading(true);
-                      onSelectApp(app);
-                    }}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono transition-all whitespace-nowrap ${
-                      selectedApp.id === app.id
-                        ? 'bg-brand-500 text-black font-bold shadow-md shadow-brand-500/20'
-                        : 'bg-dark-850 hover:bg-dark-800 text-slate-400 hover:text-white border border-white/5'
-                    }`}
-                  >
-                    <span>{app.icon}</span>
-                    <span>{app.name}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* Device Bezel Selector */}
-              <div className="flex items-center gap-1 bg-dark-900 p-1 rounded-xl border border-white/10">
-                <button
-                  onClick={() => setDeviceViewport('desktop')}
-                  className={`p-1.5 rounded-lg transition-colors ${
-                    deviceViewport === 'desktop' ? 'bg-dark-750 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                  title="Desktop (1280px)"
-                >
-                  <Laptop className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setDeviceViewport('tablet')}
-                  className={`p-1.5 rounded-lg transition-colors ${
-                    deviceViewport === 'tablet' ? 'bg-dark-750 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                  title="Tablet (768px)"
-                >
-                  <Tablet className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setDeviceViewport('mobile')}
-                  className={`p-1.5 rounded-lg transition-colors ${
-                    deviceViewport === 'mobile' ? 'bg-dark-750 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                  title="Mobile (390px)"
-                >
-                  <Smartphone className="w-4 h-4" />
-                </button>
-              </div>
-
-            </div>
-
-            {/* Device Container Frame */}
-            <div className="bg-dark-900 rounded-2xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300">
-              
-              {/* Fake Browser URL Bar */}
-              <div className="px-4 py-2.5 bg-dark-850 border-b border-white/10 flex items-center justify-between text-xs font-mono">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
-                </div>
-
-                <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-dark-950 border border-white/10 text-slate-400 text-[11px] max-w-md truncate">
-                  <ShieldCheck className="w-3.5 h-3.5 text-brand-400" />
-                  <span className="text-slate-200">{selectedApp.hostedUrl}</span>
-                </div>
-
-                <div className="text-[10px] text-slate-500 font-mono hidden sm:block">
-                  Latency: 14ms (Vercel Edge Global)
-                </div>
-              </div>
-
-              {/* Iframe Viewport with Smooth Loading State */}
-              <div className={`relative bg-black transition-all duration-300 ${viewportWidths[deviceViewport]}`}>
-                {frameLoading && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-dark-950/90 text-xs font-mono text-slate-400 z-10">
-                    <div className="w-8 h-8 rounded-full border-2 border-brand-500 border-t-transparent animate-spin mb-3"></div>
-                    <span>Streaming live runtime for {selectedApp.name}...</span>
-                  </div>
-                )}
-                <iframe
-                  key={selectedApp.id}
-                  src={selectedApp.hostedUrl}
-                  title={selectedApp.name}
-                  onLoad={() => setFrameLoading(false)}
-                  className="w-full h-full border-0"
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-                />
-              </div>
-
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-    </motion.section>
+    </section>
   );
 };
-
