@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Terminal, Github, Radio, CheckCircle2, SlidersHorizontal } from 'lucide-react';
+import { Search, Terminal, Github, Radio, CheckCircle2, SlidersHorizontal, Activity } from 'lucide-react';
 import { Header } from './components/Header';
 import { PortfolioSpotlight } from './components/PortfolioSpotlight';
 import { AppCard } from './components/AppCard';
+import { TableView } from './components/TableView';
 import { TopologyView } from './components/TopologyView';
 import { CommandPalette } from './components/CommandPalette';
 import { PreviewDrawer } from './components/PreviewDrawer';
 import { APPS } from './data/apps';
-import { AppItem, Category } from './types';
+import { AppItem, Category, ViewMode } from './types';
 
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentCategory, setCurrentCategory] = useState<Category>('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'topology'>('grid');
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [drawerApp, setDrawerApp] = useState<AppItem | null>(null);
   const [canInstallPwa, setCanInstallPwa] = useState(false);
@@ -104,7 +105,7 @@ export const App: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-black">
+    <div className="min-h-screen flex flex-col font-sans selection:bg-cyber-emerald selection:text-black">
       {/* Top Header */}
       <Header
         viewMode={viewMode}
@@ -124,10 +125,10 @@ export const App: React.FC = () => {
         onToggleSound={() => setSoundEnabled(!soundEnabled)}
       />
 
-      {/* Main Container */}
+      {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
         
-        {/* Executive Portfolio Spotlight Hero */}
+        {/* Executive Portfolio Spotlight & Flagship Flight Deck */}
         <PortfolioSpotlight
           flagshipApps={hostedApps}
           onOpenPreviewDrawer={(app) => {
@@ -136,7 +137,7 @@ export const App: React.FC = () => {
           }}
         />
 
-        {/* View Switcher Content */}
+        {/* View Mode Switcher Router */}
         {viewMode === 'topology' ? (
           <TopologyView
             apps={APPS}
@@ -147,8 +148,8 @@ export const App: React.FC = () => {
           />
         ) : (
           <div>
-            {/* Filter & Control Bar */}
-            <div className="panel-obsidian rounded-2xl p-4 mb-6">
+            {/* Tactical Filter & Search Bar */}
+            <div className="cyber-panel rounded-2xl p-4 mb-6">
               <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
                 
                 {/* Search Input */}
@@ -159,9 +160,9 @@ export const App: React.FC = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search systems, models, capabilities or tags... ('/' for quick command)"
-                    className="w-full pl-10 pr-12 py-2 bg-dark-900 border border-white/10 rounded-xl text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+                    className="w-full pl-10 pr-12 py-2 bg-void-950 border border-white/10 rounded-xl text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition-colors"
                   />
-                  <kbd className="hidden sm:inline-flex absolute right-3 top-2 px-2 py-0.5 text-[10px] font-mono text-slate-400 bg-dark-800 rounded border border-white/10">
+                  <kbd className="hidden sm:inline-flex absolute right-3 top-2 px-2 py-0.5 text-[10px] font-mono text-slate-400 bg-void-900 rounded border border-white/10">
                     ⌘K
                   </kbd>
                 </div>
@@ -175,11 +176,11 @@ export const App: React.FC = () => {
                     }}
                     className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                       currentCategory === 'all'
-                        ? 'bg-brand-500 text-black font-bold shadow-sm'
-                        : 'bg-dark-850 text-slate-400 hover:text-white border border-white/5'
+                        ? 'bg-cyber-emerald text-black font-bold shadow-sm shadow-cyber-emerald/20'
+                        : 'bg-void-900 text-slate-400 hover:text-white border border-white/5'
                     }`}
                   >
-                    All ({APPS.length})
+                    All Systems ({APPS.length})
                   </button>
                   <button
                     onClick={() => {
@@ -188,11 +189,11 @@ export const App: React.FC = () => {
                     }}
                     className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                       currentCategory === 'hosted'
-                        ? 'bg-brand-500 text-black font-bold shadow-sm'
-                        : 'bg-dark-850 text-slate-400 hover:text-white border border-white/5'
+                        ? 'bg-cyber-emerald text-black font-bold shadow-sm shadow-cyber-emerald/20'
+                        : 'bg-void-900 text-slate-400 hover:text-white border border-white/5'
                     }`}
                   >
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-400 mr-1.5"></span>
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyber-emerald mr-1.5 animate-pulse"></span>
                     Hosted ({hostedApps.length})
                   </button>
                   <button
@@ -202,11 +203,11 @@ export const App: React.FC = () => {
                     }}
                     className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                       currentCategory === 'agents'
-                        ? 'bg-brand-500 text-black font-bold shadow-sm'
-                        : 'bg-dark-850 text-slate-400 hover:text-white border border-white/5'
+                        ? 'bg-cyber-emerald text-black font-bold shadow-sm shadow-cyber-emerald/20'
+                        : 'bg-void-900 text-slate-400 hover:text-white border border-white/5'
                     }`}
                   >
-                    🤖 Agents & Dev
+                    🦅 Forensics & Agents
                   </button>
                   <button
                     onClick={() => {
@@ -215,11 +216,11 @@ export const App: React.FC = () => {
                     }}
                     className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                       currentCategory === 'finance'
-                        ? 'bg-brand-500 text-black font-bold shadow-sm'
-                        : 'bg-dark-850 text-slate-400 hover:text-white border border-white/5'
+                        ? 'bg-cyber-emerald text-black font-bold shadow-sm shadow-cyber-emerald/20'
+                        : 'bg-void-900 text-slate-400 hover:text-white border border-white/5'
                     }`}
                   >
-                    📈 FinTech & Markets
+                    📈 Quant & Markets
                   </button>
                   <button
                     onClick={() => {
@@ -228,46 +229,57 @@ export const App: React.FC = () => {
                     }}
                     className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                       currentCategory === 'enterprise'
-                        ? 'bg-brand-500 text-black font-bold shadow-sm'
-                        : 'bg-dark-850 text-slate-400 hover:text-white border border-white/5'
+                        ? 'bg-cyber-emerald text-black font-bold shadow-sm shadow-cyber-emerald/20'
+                        : 'bg-void-900 text-slate-400 hover:text-white border border-white/5'
                     }`}
                   >
-                    🏛️ Enterprise & Legal
+                    🏛️ Enterprise & Defense
                   </button>
                 </div>
 
               </div>
             </div>
 
-            {/* Application Cards Grid */}
-            <motion.div 
-              layout
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-            >
-              <AnimatePresence>
-                {filteredApps.map((app) => (
-                  <AppCard
-                    key={app.id}
-                    app={app}
-                    onInspect={(a) => {
-                      playMechanicalSound(1100);
-                      setDrawerApp(a);
-                    }}
-                  />
-                ))}
-              </AnimatePresence>
-            </motion.div>
+            {/* Render Grid Mode vs Table Mode */}
+            {viewMode === 'table' ? (
+              <TableView
+                apps={filteredApps}
+                onInspect={(a) => {
+                  playMechanicalSound(1100);
+                  setDrawerApp(a);
+                }}
+              />
+            ) : (
+              <motion.div 
+                layout
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+              >
+                <AnimatePresence>
+                  {filteredApps.map((app, idx) => (
+                    <AppCard
+                      key={app.id}
+                      app={app}
+                      index={idx}
+                      onInspect={(a) => {
+                        playMechanicalSound(1100);
+                        setDrawerApp(a);
+                      }}
+                    />
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            )}
 
             {/* Empty State */}
             {filteredApps.length === 0 && (
-              <div className="text-center py-16 panel-obsidian rounded-2xl">
-                <p className="text-xs font-mono text-slate-400">No applications match your filter query.</p>
+              <div className="text-center py-16 cyber-panel rounded-2xl">
+                <p className="text-xs font-mono text-slate-400">No architectural systems match your filter query.</p>
                 <button
                   onClick={() => {
                     setSearchQuery('');
                     setCurrentCategory('all');
                   }}
-                  className="mt-3 px-3 py-1.5 rounded-lg bg-dark-800 text-xs font-mono text-brand-400 border border-brand-500/20"
+                  className="mt-3 px-3 py-1.5 rounded-lg bg-void-900 text-xs font-mono text-cyber-cyan border border-cyber-cyan/20"
                 >
                   Reset Query
                 </button>
@@ -279,11 +291,11 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer Strip */}
-      <footer className="bg-dark-950/80 border-t border-white/10 py-5 px-4 lg:px-8 mt-12">
+      <footer className="bg-void-950 border-t border-white/10 py-5 px-4 lg:px-8 mt-12">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
           <div className="flex items-center gap-2">
-            <Radio className="w-3.5 h-3.5 text-brand-400" />
-            <span>AKDEY Central Command // Staff-Level Autonomous Systems</span>
+            <Activity className="w-3.5 h-3.5 text-cyber-emerald" />
+            <span>CENTRAL COMMAND // Amit Kumar Dey (@akdey) — Zero-BS Architecture</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -292,9 +304,9 @@ export const App: React.FC = () => {
               <span>github.com/akdey</span>
             </a>
             <span>•</span>
-            <span className="text-brand-400 flex items-center gap-1">
+            <span className="text-cyber-emerald flex items-center gap-1">
               <CheckCircle2 className="w-3 h-3" />
-              Vercel Edge Ready
+              Edge Verified
             </span>
           </div>
         </div>

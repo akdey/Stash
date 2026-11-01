@@ -1,5 +1,7 @@
 export type Category = 'all' | 'hosted' | 'agents' | 'finance' | 'enterprise' | 'culture';
 
+export type ViewMode = 'grid' | 'table' | 'topology';
+
 export interface AppItem {
   id: string;
   name: string;
@@ -14,4 +16,3 @@ export interface AppItem {
   architectureTier: 'Frontend PWA' | 'Full-Stack Agent' | 'CLI / Engine' | 'VS Code Extension' | 'MCP / Gateway';
   keyMetric: string;
 }
-

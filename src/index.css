@@ -7,69 +7,87 @@
 }
 
 body {
-  background-color: #08090d;
+  background-color: #030508;
   color: #e2e8f0;
   overflow-x: hidden;
   background-image: 
-    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    radial-gradient(ellipse at 50% 0%, rgba(14, 165, 233, 0.06) 0%, transparent 60%);
-  background-size: 24px 24px, 100% 100%;
+    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
   background-attachment: fixed;
 }
 
-/* Precision Hairline Panels */
-.panel-obsidian {
-  background: #0d1017;
+/* Cybernetic Glass Cards */
+.cyber-card {
+  background: rgba(12, 16, 26, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
-.panel-obsidian-hover {
-  background: #0d1017;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.panel-obsidian-hover:hover {
-  background: #111622;
-  border-color: rgba(34, 197, 94, 0.35);
+.cyber-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.85), 0 0 24px -6px rgba(6, 182, 212, 0.15);
+  background: rgba(17, 23, 38, 0.85);
 }
 
-/* Subtle glow indicators */
-.live-pulse-dot {
+.cyber-panel {
+  background: rgba(12, 16, 26, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Laser borders */
+.laser-border-emerald {
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.2);
+}
+
+.laser-border-cyan {
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.2);
+}
+
+/* Pulsing radar dots */
+.radar-pulse-green {
   position: relative;
   display: inline-flex;
   height: 8px;
   width: 8px;
 }
-.live-pulse-dot::after {
+.radar-pulse-green::after {
   content: '';
   position: absolute;
-  inset: -2px;
+  inset: -3px;
   border-radius: 9999px;
-  background-color: #22c55e;
-  opacity: 0.4;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background-color: #10b981;
+  opacity: 0.6;
+  animation: radarPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.4); }
+@keyframes radarPing {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  75%, 100% { transform: scale(2.4); opacity: 0; }
 }
 
-/* Custom Scrollbar */
+/* Scrollbars */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #08090d;
+  background: #030508;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e2534;
+  background: #172033;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a3449;
+  background: #273754;
 }

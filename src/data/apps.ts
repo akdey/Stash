@@ -16,6 +16,19 @@ export const APPS: AppItem[] = [
     keyMetric: "Zero-Latency Edge"
   },
   {
+    id: "hawk",
+    name: "Hawk (Hawk_v1)",
+    tagline: "Predatory Technical Forensic Agent",
+    description: "Autonomous technical intelligence agent scanning dark web spaces to capture architectural jewels and alpha using Playwright-Stealth, local Qwen-2.5B Sieve, and Groq Llama 3.3.",
+    category: "agents",
+    isHosted: false,
+    githubUrl: "https://github.com/akdey/Hawk",
+    badges: ["Playwright-Stealth", "Qwen-2.5B Sieve", "Groq Llama 3.3", "HF Vault"],
+    icon: "🦅",
+    architectureTier: "Full-Stack Agent",
+    keyMetric: "Zero-Entropy Alpha"
+  },
+  {
     id: "bluestar",
     name: "BlueStar Logistics Command Center",
     tagline: "Trading & Fleet Logistics ERP",
@@ -140,12 +153,12 @@ export const APPS: AppItem[] = [
   },
   {
     id: "docshield",
-    name: "DocShield (OfficeThings)",
+    name: "DocShield",
     tagline: "Stateless Offline Document Anonymizer",
     description: "Fully offline, stateless business document anonymizer using Format-Preserving Encryption (FPE) and GLiNER zero-shot NER to redact Word docs without databases.",
     category: "enterprise",
     isHosted: false,
-    githubUrl: "https://github.com/akdey",
+    githubUrl: "https://github.com/akdey/DocShield",
     badges: ["Format Preserving FPE", "GLiNER Zero-Shot", "Stateless Key"],
     icon: "🛡️",
     architectureTier: "CLI / Engine",
@@ -256,4 +269,3 @@ export const APPS: AppItem[] = [
     keyMetric: "Dialectic Debate"
   }
 ];
-

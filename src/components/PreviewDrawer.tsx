@@ -156,3 +156,4 @@ export const PreviewDrawer: React.FC<PreviewDrawerProps> = ({ app, onClose }) =>
     </AnimatePresence>
   );
 };
+

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Terminal, ShieldCheck, ArrowUpRight, Play, Eye, Sparkles, Layers } from 'lucide-react';
+import { ExternalLink, Terminal, ShieldCheck, ArrowUpRight, Sparkles, Cpu, Activity, Globe } from 'lucide-react';
 import { AppItem } from '../types';
 
 interface PortfolioSpotlightProps {
@@ -12,99 +12,112 @@ export const PortfolioSpotlight: React.FC<PortfolioSpotlightProps> = ({
   flagshipApps,
   onOpenPreviewDrawer,
 }) => {
-  const [activeFlagshipId, setActiveFlagshipId] = useState<string>(flagshipApps[0]?.id || 'portfolio');
-
-  const currentApp = flagshipApps.find((a) => a.id === activeFlagshipId) || flagshipApps[0];
+  const [activeId, setActiveId] = useState<string>(flagshipApps[0]?.id || 'portfolio');
+  const currentApp = flagshipApps.find((a) => a.id === activeId) || flagshipApps[0];
 
   return (
     <section className="mb-10">
-      {/* Bento Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         
-        {/* Cell 1: Identity & Engineering Thesis (7 Cols) */}
-        <div className="lg:col-span-7 panel-obsidian rounded-2xl p-6 lg:p-7 flex flex-col justify-between relative overflow-hidden">
-          {/* Subtle Accent Glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        {/* Left Column: Architect Identity & System Ethos (7 Cols) */}
+        <div className="lg:col-span-7 cyber-panel rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden laser-border-cyan">
+          {/* Ambient Cybernetic Radial Glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyber-cyan/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
 
           <div>
+            {/* Mission Indicator */}
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-brand-500/10 text-brand-400 border border-brand-500/20">
-                <span className="live-pulse-dot bg-brand-400 rounded-full"></span>
-                <span>SYSTEMS ARCHITECT & STAFF ENGINEER</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-medium bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30">
+                <span className="radar-pulse-green"></span>
+                <span>CHIEF ARCHITECT // AUTONOMOUS AI & SYSTEMS</span>
               </div>
-              <span className="text-xs font-mono text-slate-500">Kolkata, IN • Remote</span>
+              <span className="text-[11px] font-mono text-slate-500">NODE: AP-SOUTH-1 (IN)</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+            {/* Name & Headline */}
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-none">
               Amit Kumar Dey
             </h1>
-            <p className="text-xs font-mono text-cyan-400 mt-1">@akdey // Autonomous AI, Quantitative Systems & Zero-Cost Infra</p>
-
-            <p className="text-xs sm:text-sm text-slate-300 mt-3.5 leading-relaxed max-w-xl">
-              Engineering autonomous multi-agent councils, institutional-grade equity intelligence engines, and local-first zero-billing architectures. Strict proponent of <strong className="text-white font-semibold">"No AI UI"</strong> — designing bespoke, domain-specific command surfaces rather than generic chat bubbles.
+            <p className="text-xs font-mono text-cyber-emerald mt-2">
+              @akdey // High-Performance Agentic Runtimes • Market Alpha • Zero-Cost Cloud Infra
             </p>
+
+            {/* Architectural Manifesto */}
+            <p className="text-xs sm:text-sm text-slate-300 mt-4 leading-relaxed max-w-xl">
+              Architecting autonomous multi-agent councils, institutional market intelligence, and air-gapped security firewalls. Championing the <strong className="text-white font-semibold">"No AI UI"</strong> engineering principle: domain-specific operational command planes instead of passive chat boxes.
+            </p>
+
+            {/* Telemetry Stats Strip */}
+            <div className="grid grid-cols-3 gap-3 mt-6 text-xs font-mono">
+              <div className="p-3 rounded-xl bg-void-900 border border-white/5">
+                <div className="text-cyber-emerald font-bold text-lg">7 LIVE</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider">Cloud Deployments</div>
+              </div>
+              <div className="p-3 rounded-xl bg-void-900 border border-white/5">
+                <div className="text-cyber-cyan font-bold text-lg">14 REPOS</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider">Open Source</div>
+              </div>
+              <div className="p-3 rounded-xl bg-void-900 border border-white/5">
+                <div className="text-cyber-sky font-bold text-lg">₹0.00</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider">Database Billing</div>
+              </div>
+            </div>
           </div>
 
-          <div className="pt-6 mt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+          {/* Primary Action Buttons */}
+          <div className="pt-6 mt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <a
                 href="https://portfolio.akdey.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-black font-semibold text-xs font-mono hover:bg-slate-200 transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-sky text-black font-mono font-bold text-xs hover:opacity-90 transition-opacity shadow-lg shadow-cyber-cyan/20"
               >
-                <span>Master Portfolio ↗</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <span>Launch Master Portfolio</span>
+                <ArrowUpRight className="w-4 h-4" />
               </a>
 
               <a
                 href="https://github.com/akdey"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 text-slate-200 text-xs font-mono border border-white/10 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-void-850 hover:bg-void-800 text-slate-200 text-xs font-mono border border-white/10 transition-colors"
               >
+                <Globe className="w-3.5 h-3.5 text-slate-400" />
                 <span>github.com/akdey</span>
-                <ExternalLink className="w-3 h-3 text-slate-400" />
               </a>
             </div>
 
-            <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
-                7 Live Deployments
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                14 Open Source
-              </span>
+            <div className="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+              <Activity className="w-3.5 h-3.5 text-cyber-emerald" />
+              <span>Full-Stack & Edge Verified</span>
             </div>
           </div>
         </div>
 
-        {/* Cell 2: Interactive Flagship Showcase Radar (5 Cols) */}
-        <div className="lg:col-span-5 panel-obsidian rounded-2xl p-6 lg:p-7 flex flex-col justify-between">
+        {/* Right Column: Flagship Flight Deck Radar (5 Cols) */}
+        <div className="lg:col-span-5 cyber-panel rounded-2xl p-6 sm:p-7 flex flex-col justify-between laser-border-emerald relative overflow-hidden">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
               <span className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-                Featured Flagship Radar
+                <Sparkles className="w-3.5 h-3.5 text-cyber-emerald" />
+                Active Flagship Systems
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">
-                ACTIVE PRODUCTION
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-emerald/10 text-cyber-emerald border border-cyber-emerald/20">
+                RADAR ONLINE
               </span>
             </div>
 
             {/* Quick-Switch Pill Tabs */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 mb-4 custom-scrollbar">
-              {flagshipApps.slice(0, 5).map((app) => (
+              {flagshipApps.slice(0, 6).map((app) => (
                 <button
                   key={app.id}
-                  onClick={() => setActiveFlagshipId(app.id)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all whitespace-nowrap ${
-                    activeFlagshipId === app.id
-                      ? 'bg-brand-500 text-black font-bold shadow-sm'
-                      : 'bg-dark-850 hover:bg-dark-800 text-slate-400 hover:text-white border border-white/5'
+                  onClick={() => setActiveId(app.id)}
+                  className={`px-3 py-1 rounded-lg text-xs font-mono transition-all whitespace-nowrap ${
+                    activeId === app.id
+                      ? 'bg-cyber-emerald text-black font-bold shadow-sm'
+                      : 'bg-void-900 hover:bg-void-850 text-slate-400 hover:text-white border border-white/5'
                   }`}
                 >
                   <span>{app.name}</span>
@@ -112,7 +125,7 @@ export const PortfolioSpotlight: React.FC<PortfolioSpotlightProps> = ({
               ))}
             </div>
 
-            {/* Active System Details */}
+            {/* Selected System Blueprint */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentApp.id}
@@ -123,12 +136,12 @@ export const PortfolioSpotlight: React.FC<PortfolioSpotlightProps> = ({
                 className="space-y-3"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center text-xl border border-white/10">
+                  <div className="w-12 h-12 rounded-xl bg-void-900 flex items-center justify-center text-2xl border border-white/10 shadow-inner">
                     {currentApp.icon}
                   </div>
                   <div>
                     <h3 className="text-base font-bold text-white tracking-tight">{currentApp.name}</h3>
-                    <p className="text-xs font-mono text-brand-400">{currentApp.tagline}</p>
+                    <p className="text-xs font-mono text-cyber-cyan">{currentApp.tagline}</p>
                   </div>
                 </div>
 
@@ -136,34 +149,34 @@ export const PortfolioSpotlight: React.FC<PortfolioSpotlightProps> = ({
                   {currentApp.description}
                 </p>
 
-                <div className="p-2.5 rounded-xl bg-dark-900 border border-white/5 flex items-center justify-between text-xs font-mono">
-                  <span className="text-slate-400">Architectural Metric:</span>
-                  <span className="text-cyan-400 font-semibold">{currentApp.keyMetric}</span>
+                <div className="p-3 rounded-xl bg-void-950 border border-white/5 flex items-center justify-between text-xs font-mono">
+                  <span className="text-slate-400">Core Architecture:</span>
+                  <span className="text-cyber-emerald font-semibold">{currentApp.keyMetric}</span>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
           {/* Action Row */}
-          <div className="pt-4 mt-4 border-t border-white/5 flex items-center gap-2">
+          <div className="pt-4 mt-4 border-t border-white/10 flex items-center gap-2">
             <a
               href={currentApp.hostedUrl || currentApp.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="flex-1 text-center py-2 px-3 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-black font-mono font-bold text-xs transition-all shadow-md shadow-brand-500/10 flex items-center justify-center gap-1.5"
+              className="flex-1 text-center py-2.5 px-3 rounded-xl bg-cyber-emerald text-black font-mono font-bold text-xs hover:bg-cyber-mint transition-colors shadow-md shadow-cyber-emerald/10 flex items-center justify-center gap-1.5"
             >
-              <span>Launch Live App</span>
+              <span>{currentApp.isHosted ? 'Initialize Live Host' : 'Audit Repository'}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
 
             {currentApp.isHosted && (
               <button
                 onClick={() => onOpenPreviewDrawer(currentApp)}
-                className="px-3 py-2 rounded-xl bg-dark-850 hover:bg-dark-800 text-slate-300 hover:text-white border border-white/10 text-xs font-mono flex items-center gap-1.5 transition-colors"
-                title="Preview inside slide-over drawer"
+                className="px-3 py-2.5 rounded-xl bg-void-900 hover:bg-void-850 text-cyber-cyan border border-white/10 text-xs font-mono flex items-center gap-1.5 transition-colors"
+                title="Inspect in live drawer"
               >
-                <Eye className="w-3.5 h-3.5 text-cyan-400" />
-                <span className="hidden sm:inline">Inspect</span>
+                <Terminal className="w-3.5 h-3.5" />
+                <span>Inspect</span>
               </button>
             )}
           </div>
