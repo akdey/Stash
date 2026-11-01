@@ -21,8 +21,8 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-white/10 flex items-center justify-center font-mono font-bold text-emerald-400 text-xs">
-            AK
+          <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-white/10 p-1 flex items-center justify-center overflow-hidden">
+            <img src="/favicon.svg" alt="Stash" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="flex items-center gap-2">

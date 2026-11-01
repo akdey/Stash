@@ -61,3 +61,4 @@ export const PortfolioMicrofrontend: React.FC<PortfolioMicrofrontendProps> = ({
     </section>
   );
 };
+

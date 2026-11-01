@@ -1,5 +1,12 @@
-const CACHE_NAME = 'akdey-command-v1';
-const STATIC_ASSETS = ['/', '/index.html', '/favicon.svg', '/manifest.webmanifest'];
+const CACHE_NAME = 'akdey-stash-v2';
+const STATIC_ASSETS = [
+  '/',
+  '/index.html',
+  '/favicon.svg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/manifest.webmanifest'
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -21,7 +28,6 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-  // Network first with cache fallback
   event.respondWith(
     fetch(event.request)
       .then((response) => {
@@ -32,4 +38,3 @@ self.addEventListener('fetch', (event) => {
       .catch(() => caches.match(event.request))
   );
 });
-

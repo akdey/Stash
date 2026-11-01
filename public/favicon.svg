@@ -1,6 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="16" fill="#07090E"/>
-  <rect x="2" y="2" width="60" height="60" rx="14" stroke="#22C55E" stroke-opacity="0.3" stroke-width="2"/>
-  <path d="M18 46L30 18H34L46 46H39.5L36.8 39.5H27.2L24.5 46H18ZM29 34.5H35L32 26.5L29 34.5Z" fill="#22C55E"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07090e" />
+      <stop offset="100%" stop-color="#020305" />
+    </linearGradient>
 
+    <!-- Emerald / Cyan Cyber Gradient -->
+    <linearGradient id="cyberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="50%" stop-color="#00f2a1" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+
+    <!-- Subtle Border Gradient -->
+    <linearGradient id="borderGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="neonBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" />
+  <rect x="12" y="12" width="488" height="488" rx="110" stroke="url(#borderGlow)" stroke-width="6" />
+
+  <!-- STASH VAULT CHEST / REPOSITORY EMBLEM -->
+  <!-- Layer 1: Top Stash Tray / Vault Lid -->
+  <g filter="url(#neonBlur)">
+    <!-- Top Tray -->
+    <path d="M120 180C120 162.327 134.327 148 152 148H360C377.673 148 392 162.327 392 180V196C392 213.673 377.673 228 360 228H152C134.327 228 120 213.673 120 196V180Z" fill="#0d1420" stroke="url(#cyberGlow)" stroke-width="10"/>
+    
+    <!-- Top Tray Handle / Latch Slot -->
+    <rect x="220" y="174" width="72" height="14" rx="7" fill="url(#cyberGlow)"/>
+
+    <!-- Layer 2: Middle Vault Compartment -->
+    <path d="M140 248C140 234.745 150.745 224 164 224H348C361.255 224 372 234.745 372 248V280C372 293.255 361.255 304 348 304H164C150.745 304 140 293.255 140 280V248Z" fill="#090d16" stroke="url(#cyberGlow)" stroke-width="8"/>
+    
+    <!-- Middle Tray Accent -->
+    <circle cx="180" cy="264" r="6" fill="#10b981"/>
+    <circle cx="206" cy="264" r="6" fill="#06b6d4"/>
+    <line x1="244" y1="264" x2="332" y2="264" stroke="url(#cyberGlow)" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Layer 3: Deep Secure Stash Base -->
+    <path d="M160 324C160 310.745 170.745 300 184 300H328C341.255 300 352 310.745 352 324V348C352 361.255 341.255 372 328 372H184C170.745 372 160 361.255 160 348V324Z" fill="#06090e" stroke="url(#cyberGlow)" stroke-width="8"/>
+    
+    <!-- Base Cryptographic Lock Indicator -->
+    <rect x="238" y="328" width="36" height="16" rx="8" fill="url(#cyberGlow)"/>
+  </g>
+
+  <!-- Glowing Accent Sparks -->
+  <circle cx="376" cy="148" r="5" fill="#00f2a1"/>
+  <circle cx="136" cy="372" r="4" fill="#06b6d4"/>
+</svg>
