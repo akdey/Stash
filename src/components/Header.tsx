@@ -36,12 +36,12 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold tracking-tight text-white">CENTRAL COMMAND</span>
+              <span className="text-sm font-bold tracking-tight text-white">STASH</span>
               <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-cyber-emerald/10 text-cyber-emerald border border-cyber-emerald/20">
                 PWA READY
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-mono">Micro-Frontend & Architectural Flight Deck</p>
+            <p className="text-[11px] text-slate-400 font-mono">Micro-Frontend & Systems Vault</p>
           </div>
         </div>
 

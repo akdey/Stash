@@ -1,9 +1,9 @@
 {
-  "name": "akdey-central-command",
-  "version": "2.0.0",
+  "name": "akdey-stash",
+  "version": "2.1.0",
   "private": true,
   "type": "module",
-  "description": "Unified Micro-Frontend Launchpad & Architecture Control Plane for Amit Kumar Dey's Software Ecosystem",
+  "description": "STASH // Unified Micro-Frontend Launchpad & Architecture Hub for Amit Kumar Dey's Software Ecosystem",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

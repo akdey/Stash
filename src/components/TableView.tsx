@@ -119,3 +119,4 @@ export const TableView: React.FC<TableViewProps> = ({ apps, onInspect }) => {
     </motion.div>
   );
 };
+

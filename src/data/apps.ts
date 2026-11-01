@@ -9,8 +9,8 @@ export const APPS: AppItem[] = [
     category: "culture",
     isHosted: true,
     hostedUrl: "https://portfolio.akdey.vercel.app/",
-    githubUrl: "https://github.com/akdey",
-    badges: ["Vercel Live", "Next/React", "Agentic Systems"],
+    githubUrl: "https://github.com/akdey/MyPortolio",
+    badges: ["Vercel Live", "React Terminal", "Touch Interactive", "Agentic Systems"],
     icon: "⚡",
     architectureTier: "Frontend PWA",
     keyMetric: "Zero-Latency Edge"

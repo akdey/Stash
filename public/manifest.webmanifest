@@ -1,7 +1,7 @@
 {
-  "name": "AKDEY Central Command",
-  "short_name": "AKDEY Hub",
-  "description": "Unified Micro-Frontend Launchpad & Architecture Control Plane for Amit Kumar Dey's Software Ecosystem",
+  "name": "AKDEY Stash",
+  "short_name": "Stash",
+  "description": "STASH // Unified Micro-Frontend Launchpad & Architecture Hub for Amit Kumar Dey's Software Ecosystem",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#07090e",
@@ -15,4 +15,3 @@
     }
   ]
 }
-

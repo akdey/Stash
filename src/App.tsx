@@ -295,7 +295,7 @@ export const App: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
           <div className="flex items-center gap-2">
             <Activity className="w-3.5 h-3.5 text-cyber-emerald" />
-            <span>CENTRAL COMMAND // Amit Kumar Dey (@akdey) — Zero-BS Architecture</span>
+            <span>STASH // Amit Kumar Dey (@akdey) — Zero-BS Architecture</span>
           </div>
 
           <div className="flex items-center gap-4">
