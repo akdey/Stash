@@ -1,23 +1,19 @@
 import React from 'react';
-import { Terminal, Github, ExternalLink, Download, Volume2, VolumeX } from 'lucide-react';
+import { Terminal, Github, ExternalLink, Download } from 'lucide-react';
 
 interface HeaderProps {
   onOpenCommand: () => void;
   onInstallPwa: () => void;
   canInstallPwa: boolean;
-  soundEnabled: boolean;
-  onToggleSound: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   onOpenCommand,
   onInstallPwa,
   canInstallPwa,
-  soundEnabled,
-  onToggleSound,
 }) => {
   return (
-    <header className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-white/5 px-4 lg:px-8 py-3">
+    <header className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-white/[0.06] px-4 lg:px-8 py-3">
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
         {/* Brand */}
         <div className="flex items-center gap-3">
@@ -27,25 +23,14 @@ export const Header: React.FC<HeaderProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold tracking-tight text-white font-mono">STASH</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
             </div>
-            <p className="text-[10px] text-slate-500 font-mono hidden sm:block">Micro-Frontend & Systems Vault</p>
+            <p className="text-[10px] text-slate-500 font-mono hidden sm:block">Systems & Projects Vault</p>
           </div>
         </div>
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
-          {/* Audio toggle */}
-          <button
-            onClick={onToggleSound}
-            className={`p-2 rounded-lg text-xs font-mono border border-white/10 transition-colors ${
-              soundEnabled ? 'bg-zinc-800 text-emerald-400' : 'bg-zinc-900 text-slate-500 hover:text-slate-300'
-            }`}
-            title={soundEnabled ? 'Mute Audio' : 'Enable Tactile Audio'}
-          >
-            {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-          </button>
-
           {/* Command Palette Trigger */}
           <button
             onClick={onOpenCommand}

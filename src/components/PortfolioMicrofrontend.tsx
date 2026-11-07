@@ -36,7 +36,7 @@ export const PortfolioMicrofrontend: React.FC<PortfolioMicrofrontendProps> = ({
           className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 hover:bg-zinc-800 text-slate-300 hover:text-white border border-white/10 transition-all cursor-pointer group"
         >
           <span className="text-[11px] text-slate-400 group-hover:text-emerald-300 transition-colors">
-            Scroll to explore next projects
+            Explore featured projects
           </span>
           <motion.div
             animate={{ y: [0, 2, 0] }}

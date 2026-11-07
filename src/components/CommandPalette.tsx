@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ExternalLink, Github, ArrowRight, X, Terminal } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight, X, Search } from 'lucide-react';
 import { AppItem } from '../types';
 
 interface CommandPaletteProps {
@@ -59,17 +59,20 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] p-4 bg-black/70 backdrop-blur-sm">
+          {/* Backdrop click to close */}
+          <div className="fixed inset-0" onClick={onClose} />
+
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            initial={{ opacity: 0, scale: 0.96, y: -8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="w-full max-w-2xl bg-void-950 border border-cyber-cyan/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col laser-border-cyan"
+            exit={{ opacity: 0, scale: 0.96, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="relative w-full max-w-xl bg-zinc-900 border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
           >
-            {/* Search Input Bar */}
-            <div className="p-4 border-b border-white/10 flex items-center gap-3 bg-void-900">
-              <Terminal className="w-4 h-4 text-cyber-cyan" />
+            {/* Search Input */}
+            <div className="p-4 border-b border-white/[0.06] flex items-center gap-3">
+              <Search className="w-4 h-4 text-slate-400" />
               <input
                 ref={inputRef}
                 type="text"
@@ -79,22 +82,22 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   setSelectedIndex(0);
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder="Search systems, models, capabilities or tags..."
-                className="w-full bg-transparent text-sm text-white placeholder-slate-500 focus:outline-none font-mono"
+                placeholder="Search projects..."
+                className="w-full bg-transparent text-sm text-white placeholder-slate-500 focus:outline-none"
               />
               <button
                 onClick={onClose}
-                className="p-1 rounded-lg hover:bg-void-800 text-slate-400 hover:text-white"
+                className="p-1 rounded-lg hover:bg-zinc-800 text-slate-400 hover:text-white transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Filtered Results */}
-            <div className="max-h-[380px] overflow-y-auto p-2 custom-scrollbar space-y-1">
+            {/* Results */}
+            <div className="max-h-[340px] overflow-y-auto p-1.5 custom-scrollbar">
               {filtered.length === 0 ? (
-                <div className="text-center py-8 text-xs font-mono text-slate-500">
-                  No matching systems found
+                <div className="text-center py-8 text-sm text-slate-500">
+                  No projects found
                 </div>
               ) : (
                 filtered.map((app, index) => {
@@ -107,44 +110,38 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         onClose();
                       }}
                       onMouseEnter={() => setSelectedIndex(index)}
-                      className={`p-3 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-all ${
+                      className={`px-3 py-2.5 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-colors ${
                         isSelected
-                          ? 'bg-void-900 border border-cyber-cyan/40 text-white'
-                          : 'hover:bg-void-900/60 text-slate-300 border border-transparent'
+                          ? 'bg-white/[0.06] text-white'
+                          : 'text-slate-300 hover:bg-white/[0.03]'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <span className="text-xl flex-shrink-0">{app.icon}</span>
+                        <span className="text-lg flex-shrink-0">{app.icon}</span>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-white truncate">{app.name}</span>
-                            {app.isHosted ? (
-                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyber-emerald/20 text-cyber-emerald border border-cyber-emerald/30">
-                                Live Host
-                              </span>
-                            ) : (
-                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-void-800 text-slate-400 border border-white/10">
-                                Open Source
-                              </span>
+                            <span className="text-sm font-semibold text-white truncate">{app.name}</span>
+                            {app.isHosted && (
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
                             )}
                           </div>
-                          <p className="text-xs font-mono text-cyber-cyan truncate">{app.tagline}</p>
+                          <p className="text-xs text-slate-500 truncate">{app.tagline}</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 flex-shrink-0 text-xs font-mono">
+                      <div className="flex items-center gap-2 flex-shrink-0 text-xs">
                         {app.isHosted ? (
-                          <span className="text-cyber-emerald flex items-center gap-1">
+                          <span className="text-emerald-400 flex items-center gap-1">
                             <span>Launch</span>
                             <ExternalLink className="w-3 h-3" />
                           </span>
                         ) : (
-                          <span className="text-slate-400 flex items-center gap-1">
+                          <span className="text-slate-500 flex items-center gap-1">
                             <span>Repo</span>
                             <Github className="w-3 h-3" />
                           </span>
                         )}
-                        <ArrowRight className={`w-3.5 h-3.5 ${isSelected ? 'text-cyber-cyan' : 'text-transparent'}`} />
+                        <ArrowRight className={`w-3 h-3 transition-opacity ${isSelected ? 'opacity-100 text-slate-400' : 'opacity-0'}`} />
                       </div>
                     </div>
                   );
@@ -152,16 +149,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               )}
             </div>
 
-            {/* Bottom Keyboard Hint Bar */}
-            <div className="px-4 py-2.5 bg-void-950 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            {/* Keyboard hints */}
+            <div className="px-4 py-2 bg-zinc-950/60 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-500">
               <div className="flex items-center gap-3">
                 <span>↑↓ Navigate</span>
-                <span>↵ Open Gateway</span>
-                <span>ESC Dismiss</span>
+                <span>↵ Open</span>
+                <span>ESC Close</span>
               </div>
-              <div>{filtered.length} Applications</div>
+              <span>{filtered.length} projects</span>
             </div>
-
           </motion.div>
         </div>
       )}
