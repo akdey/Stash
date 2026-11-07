@@ -101,3 +101,4 @@ export const MobileDock: React.FC<MobileDockProps> = ({
     </div>
   );
 };
+

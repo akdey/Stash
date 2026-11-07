@@ -229,3 +229,4 @@ export const ArchitectureMatrix: React.FC<ArchitectureMatrixProps> = ({ apps, on
     </div>
   );
 };
+
