@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, ArrowRight, X, Search } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight, X, Search, Terminal } from 'lucide-react';
 import { AppItem } from '../types';
 
 interface CommandPaletteProps {
@@ -27,13 +27,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       app.name.toLowerCase().includes(q) ||
       app.tagline.toLowerCase().includes(q) ||
       app.description.toLowerCase().includes(q) ||
+      app.architectureTier.toLowerCase().includes(q) ||
       app.badges.some((b) => b.toLowerCase().includes(q))
     );
   });
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+      setTimeout(() => inputRef.current?.focus(), 60);
       setSelectedIndex(0);
       setQuery('');
     }
@@ -59,20 +60,20 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] p-4 bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-12 sm:pt-[12vh] p-3 sm:p-4 bg-black/80 backdrop-blur-md">
           {/* Backdrop click to close */}
           <div className="fixed inset-0" onClick={onClose} />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: -8 }}
+            initial={{ opacity: 0, scale: 0.96, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -8 }}
+            exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="relative w-full max-w-xl bg-zinc-900 border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/40 overflow-hidden flex flex-col"
+            className="relative w-full max-w-xl bg-[#090e18] border border-white/[0.12] rounded-2xl shadow-2xl shadow-black/80 overflow-hidden flex flex-col"
           >
-            {/* Search Input */}
-            <div className="p-4 border-b border-white/[0.06] flex items-center gap-3">
-              <Search className="w-4 h-4 text-slate-400" />
+            {/* Search Input Bar */}
+            <div className="p-3.5 sm:p-4 border-b border-white/[0.08] flex items-center gap-3 bg-[#0d1422]">
+              <Terminal className="w-4 h-4 text-cyan-400 flex-shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -82,22 +83,22 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   setSelectedIndex(0);
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder="Search projects..."
-                className="w-full bg-transparent text-sm text-white placeholder-slate-500 focus:outline-none"
+                placeholder="Search 20 systems, agents, models, tags..."
+                className="w-full bg-transparent text-sm font-mono text-white placeholder-slate-500 focus:outline-none"
               />
               <button
                 onClick={onClose}
-                className="p-1 rounded-lg hover:bg-zinc-800 text-slate-400 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg hover:bg-zinc-800 text-slate-400 hover:text-white transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Results */}
-            <div className="max-h-[340px] overflow-y-auto p-1.5 custom-scrollbar">
+            {/* Results List */}
+            <div className="max-h-[360px] overflow-y-auto p-2 custom-scrollbar space-y-1">
               {filtered.length === 0 ? (
-                <div className="text-center py-8 text-sm text-slate-500">
-                  No projects found
+                <div className="text-center py-10 text-xs font-mono text-slate-500">
+                  No matching systems found
                 </div>
               ) : (
                 filtered.map((app, index) => {
@@ -110,38 +111,46 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         onClose();
                       }}
                       onMouseEnter={() => setSelectedIndex(index)}
-                      className={`px-3 py-2.5 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-colors ${
+                      className={`p-2.5 sm:p-3 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-colors active:scale-[0.99] ${
                         isSelected
-                          ? 'bg-white/[0.06] text-white'
-                          : 'text-slate-300 hover:bg-white/[0.03]'
+                          ? 'bg-zinc-800/90 text-white border border-white/10'
+                          : 'text-slate-300 hover:bg-zinc-800/50 border border-transparent'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <span className="text-lg flex-shrink-0">{app.icon}</span>
+                        <span className="text-xl flex-shrink-0 p-1 rounded-lg bg-black/40">
+                          {app.icon}
+                        </span>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold text-white truncate">{app.name}</span>
-                            {app.isHosted && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                            <span className="text-sm font-bold text-white truncate">{app.name}</span>
+                            {app.isHosted ? (
+                              <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex-shrink-0">
+                                Live Host
+                              </span>
+                            ) : (
+                              <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-zinc-800 text-slate-400 border border-white/10 flex-shrink-0">
+                                Open Source
+                              </span>
                             )}
                           </div>
-                          <p className="text-xs text-slate-500 truncate">{app.tagline}</p>
+                          <p className="text-xs font-mono text-slate-400 truncate">{app.tagline}</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 flex-shrink-0 text-xs">
+                      <div className="flex items-center gap-2 flex-shrink-0 text-xs font-mono">
                         {app.isHosted ? (
                           <span className="text-emerald-400 flex items-center gap-1">
-                            <span>Launch</span>
+                            <span className="hidden sm:inline">Launch</span>
                             <ExternalLink className="w-3 h-3" />
                           </span>
                         ) : (
-                          <span className="text-slate-500 flex items-center gap-1">
-                            <span>Repo</span>
+                          <span className="text-slate-400 flex items-center gap-1">
+                            <span className="hidden sm:inline">Repo</span>
                             <Github className="w-3 h-3" />
                           </span>
                         )}
-                        <ArrowRight className={`w-3 h-3 transition-opacity ${isSelected ? 'opacity-100 text-slate-400' : 'opacity-0'}`} />
+                        <ArrowRight className={`w-3.5 h-3.5 transition-opacity ${isSelected ? 'opacity-100 text-cyan-400' : 'opacity-0'}`} />
                       </div>
                     </div>
                   );
@@ -149,14 +158,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               )}
             </div>
 
-            {/* Keyboard hints */}
-            <div className="px-4 py-2 bg-zinc-950/60 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-500">
+            {/* Keyboard Footer */}
+            <div className="px-4 py-2 bg-[#060a12] border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-slate-400">
               <div className="flex items-center gap-3">
                 <span>↑↓ Navigate</span>
-                <span>↵ Open</span>
-                <span>ESC Close</span>
+                <span>↵ Enter</span>
+                <span>ESC Dismiss</span>
               </div>
-              <span>{filtered.length} projects</span>
+              <span>{filtered.length} Systems</span>
             </div>
           </motion.div>
         </div>
