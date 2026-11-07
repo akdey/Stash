@@ -165,3 +165,4 @@ export const ProjectDirectory: React.FC<ProjectDirectoryProps> = ({ apps, onInsp
     </section>
   );
 };
+

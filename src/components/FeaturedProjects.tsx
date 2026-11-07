@@ -114,3 +114,4 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ apps, onInsp
     </section>
   );
 };
+
